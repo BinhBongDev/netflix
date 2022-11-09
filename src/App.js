@@ -1,9 +1,10 @@
 import React from 'react'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-white'>React with tailwindcss</h1>
+      <Navbar />
     </div>
   )
 }
