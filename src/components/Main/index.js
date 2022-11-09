@@ -5,12 +5,19 @@ import {requests} from '../../untils/RequesApi'
 
 const Main = () => {
     const [movies, setMovies] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const moive = movies[Math.floor(Math.random() * movies.length)]
     console.log(moive)
     
     const getApi = async() => {
-        const data = await axios.get(requests.requestPopular)
-        setMovies(data.data.results)
+        try {
+            const data = await axios.get(requests.requestPopular)
+            setMovies(data.data.results)
+            setIsLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     useEffect(() => {
@@ -24,6 +31,10 @@ const Main = () => {
             return str
         }
     }
+
+    if(isLoading) {
+        return <div className='text-center text-white'>Loading ...</div>
+    } else {
   return (
     <div className='w-full h-[550px] text-white'>
         <div className='w-full h-full'>
@@ -40,7 +51,7 @@ const Main = () => {
             <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>{truncatString(moive?.overview, 200)}</p>
         </div>
     </div>
-  )
+  )}
 }
 
 export default Main
