@@ -4,18 +4,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import {UserAuth} from '../../context/AuthContext'
 
 const LogIn = () => {
-  const {user, userLogIn} = UserAuth()
+  const {userLogIn} = UserAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [err, setErr] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErr('')
     try {
       await userLogIn(email, password)
       navigate('/')
     } catch (error) {
       console.log(error)
+      setErr(error.message)
     }
   }
 
@@ -29,6 +32,7 @@ const LogIn = () => {
         <div className='max-w-[450px] h-[600px] mx-auto bg-black/75 text-white'>
           <div className='max-w-[320px] mx-auto py-16'>
             <h2 className='text-3xl font-bold'>Log In</h2>
+            {err && <p className='text-red-600 my-3 '>{err}</p>}
             <form onSubmit={handleSubmit} className='flex w-full flex-col py-4'>
               <input
               className='p-3 my-2 rounded bg-gray-700'
