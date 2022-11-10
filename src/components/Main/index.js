@@ -7,7 +7,6 @@ const Main = () => {
     const [movies, setMovies] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const moive = movies[Math.floor(Math.random() * movies.length)]
-    console.log(moive)
     
     const getApi = async() => {
         try {
